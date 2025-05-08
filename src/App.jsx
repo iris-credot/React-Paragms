@@ -1,25 +1,30 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/navbar";
-import Home from "./components/home";
-import UserProfile from "./components/userProfile";
+import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './component/protectedroute';
+import Navbar from './component/navbar';
+import Login from './component/login';
+import Dashboard from './component/dashboard';
+import Home from './component/home';
 
 function App() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
-      <div className="flex flex-col md:flex-row w-full max-w-5xl bg-white shadow-lg rounded-lg overflow-hidden">
-    
-        <aside className="md:w-1/4 w-full bg-gray-800 text-white p-4 flex flex-col">
-          <Navbar />
-        </aside>
-
-       
-        <main className="md:w-3/4 w-full p-6">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/users/:id" element={<UserProfile />} />
-          </Routes>
-        </main>
+    <div className="min-h-screen bg-gray-50 w-screen flex flex-col justify-center items-center ">
+      {/* Navbar stays at the top, with full width */}
+      <Navbar />
+      
+      {/* Main content with larger width and centered routes */}
+      <div className="flex flex-col items-center justify-center w-full max-w-full p-4">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+        </Routes>
       </div>
     </div>
   );
